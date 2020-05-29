@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:monthly_pay_user/Dash_Board/dash_board.dart';
 
 
 void main() {
@@ -46,6 +47,7 @@ class MyApp extends StatelessWidget {
           )
         ),
       ),
+      home: DashBoard(),
     );
   }
 }
