@@ -30,8 +30,8 @@ class MyApp extends StatelessWidget {
           headline6: TextStyle(
             color: Colors.black,
             fontSize: 30,
-              fontFamily: 'SIMPLIFICA'
-
+              fontFamily: 'SIMPLIFICA',
+            fontWeight: FontWeight.bold,
           ),
           subtitle1: TextStyle(
             color: Colors.black87,
