@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:monthly_pay_user/Dash_Board/dash_board.dart';
+import 'package:monthly_pay_user/Invoice/invoice.dart';
 
 class BottomBar extends StatefulWidget {
   final int currentTab;
@@ -28,6 +30,14 @@ class _BottomBarState extends State<BottomBar> {
     );
   }
 
+  List<Widget> bottomWidgetList = [
+    DashBoard(),
+    Text('Transactions'),
+    Text('Ledger'),
+    Invoice(),
+    Text('Profile'),
+  ];
+
   @override
   Widget build(BuildContext context) {
     int _currentTab = widget.currentTab;
@@ -39,7 +49,7 @@ class _BottomBarState extends State<BottomBar> {
           setState(
             () {
               if (_currentTab != index) {
-                // _fadeTransition(context, bottomBarWidgets[index]);
+                _fadeTransition(context, bottomWidgetList[index]);
               }
               _currentTab = index;
             },
