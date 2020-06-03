@@ -9,19 +9,11 @@ import 'widgets/customer.dart';
 import 'widgets/request.dart';
 import 'package:monthly_pay_user/Add_Customer/add_customer.dart';
 
-<<<<<<< HEAD
-
-=======
->>>>>>> e8863670f878242bd03c1d70ef3aae10458d6851
 class DashBoard extends StatefulWidget {
   @override
   _DashBoardState createState() => _DashBoardState();
 }
 
-<<<<<<< HEAD
-
-=======
->>>>>>> e8863670f878242bd03c1d70ef3aae10458d6851
 class _DashBoardState extends State<DashBoard>
     with SingleTickerProviderStateMixin {
   Animation animationForAmount,
@@ -104,8 +96,6 @@ class _DashBoardState extends State<DashBoard>
             ));
   }
 
-<<<<<<< HEAD
-=======
   void _Fade(BuildContext context, Widget widget) {
     Navigator.of(context).push(PageRouteBuilder(
         transitionDuration: Duration(milliseconds: 600),
@@ -120,7 +110,6 @@ class _DashBoardState extends State<DashBoard>
         }));
   }
 
->>>>>>> e8863670f878242bd03c1d70ef3aae10458d6851
   @override
   Widget build(BuildContext context) {
     double _heightOfScreen = MediaQuery.of(context).size.height -
@@ -128,102 +117,6 @@ class _DashBoardState extends State<DashBoard>
         MediaQuery.of(context).padding.top;
     double _widthOfScreen = MediaQuery.of(context).size.width;
 
-<<<<<<< HEAD
-    return AnimatedBuilder(
-      animation: animationController,
-      builder: (context, child) {
-        return WillPopScope(
-          onWillPop: _backPressed,
-                  child: Scaffold(
-            appBar: _appBar,
-            bottomNavigationBar: BottomBar(
-              currentTab: 0,
-            ),
-            floatingActionButton: FloatingActionButton(
-              onPressed: () {},
-              child: Icon(
-                Icons.add,
-                color: Theme.of(context).accentColor,
-              ),
-              backgroundColor: Theme.of(context).primaryColor,
-            ),
-            body: CustomPaint(
-              painter: CurvePainter(),
-              child: Container(
-                height: _heightOfScreen,
-                width: _widthOfScreen,
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: <Widget>[
-                      Transform(
-                        transform: Matrix4.translationValues(
-                          animationForAmount.value * _widthOfScreen,
-                          0,
-                          0,
-                        ),
-                        child: Container(
-                          margin: EdgeInsets.symmetric(vertical: 5),
-                          height: _heightOfScreen / 5,
-                          width: _widthOfScreen * 0.90,
-                          child: Amount(),
-                        ),
-                      ),
-                      Transform(
-                        transform: Matrix4.translationValues(
-                          animationForCollection.value * _widthOfScreen,
-                          0,
-                          0,
-                        ),
-                        child: Container(
-                          margin: EdgeInsets.symmetric(vertical: 5),
-                          height: _heightOfScreen / 5,
-                          width: _widthOfScreen * 0.90,
-                          child: Collection(),
-                        ),
-                      ),
-                      Transform(
-                        transform: Matrix4.translationValues(
-                          animationForOrder.value * _widthOfScreen,
-                          0,
-                          0,
-                        ),
-                        child: Container(
-                          margin: EdgeInsets.symmetric(vertical: 5),
-                          height: _heightOfScreen / 5,
-                          width: _widthOfScreen * 0.90,
-                          child: Order(),
-                        ),
-                      ),
-                      Transform(
-                        transform: Matrix4.translationValues(
-                          animationForCustomer.value * _widthOfScreen,
-                          0,
-                          0,
-                        ),
-                        child: Container(
-                          margin: EdgeInsets.symmetric(vertical: 5),
-                          height: _heightOfScreen / 5,
-                          width: _widthOfScreen * 0.90,
-                          child: Customer(),
-                        ),
-                      ),
-                      Transform(
-                        transform: Matrix4.translationValues(
-                          animationForRequest.value * _widthOfScreen,
-                          0,
-                          0,
-                        ),
-                        child: Container(
-                          margin: EdgeInsets.symmetric(vertical: 5),
-                          height: _heightOfScreen / 5,
-                          width: _widthOfScreen * 0.90,
-                          child: Request(),
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-=======
     return Scaffold(
       appBar: _appBar,
       bottomNavigationBar: BottomBar(
@@ -257,7 +150,6 @@ class _DashBoardState extends State<DashBoard>
                 height: _heightOfScreen / 5,
                 width: _widthOfScreen * 0.90,
                 child: Collection(),
->>>>>>> e8863670f878242bd03c1d70ef3aae10458d6851
               ),
               Container(
                 margin: EdgeInsets.symmetric(vertical: 5),
@@ -270,6 +162,12 @@ class _DashBoardState extends State<DashBoard>
                 height: _heightOfScreen / 5,
                 width: _widthOfScreen * 0.90,
                 child: Customer(),
+              ),
+              Container(
+                margin: EdgeInsets.symmetric(vertical: 5),
+                height: _heightOfScreen / 5,
+                width: _widthOfScreen * 0.90,
+                child: Request(),
               ),
             ]),
           ),
