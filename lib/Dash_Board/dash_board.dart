@@ -8,6 +8,7 @@ import 'widgets/collection.dart';
 import 'widgets/order.dart';
 import 'widgets/customer.dart';
 import 'widgets/request.dart';
+import 'package:monthly_pay_user/Add_Customer/add_customer.dart';
 
 
 class DashBoard extends StatefulWidget {
@@ -37,7 +38,9 @@ class _DashBoardState extends State<DashBoard> {
         currentTab: 0,
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+                    _Fade(context, AddCustomer());
+        },
         child: Icon(
           Icons.add,
           color: Theme.of(context).accentColor,
@@ -87,6 +90,22 @@ class _DashBoardState extends State<DashBoard> {
           ),
         ),
       ),
+    );
+  }
+  void _Fade(BuildContext context,Widget widget){
+    Navigator.of(context).push(
+        PageRouteBuilder(
+            transitionDuration: Duration(milliseconds: 600),
+            pageBuilder: (context,animation,secondaryAnimation){
+              return widget;
+            },
+            transitionsBuilder: (context,animation,secondaryAnimation,child){
+              return FadeTransition(
+                opacity: animation,
+                child: child,
+              );
+            }
+        )
     );
   }
 }
