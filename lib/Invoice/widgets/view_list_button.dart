@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:monthly_pay_user/Invoice/models/invoice_customers.dart';
 import '../../View_List/view_list.dart';
 
 class ViewListButton extends StatefulWidget {
+  final List<InvoiceCustomer> invoiceCustomers;
+
+  ViewListButton({this.invoiceCustomers});
   @override
   _ViewListButtonState createState() => _ViewListButtonState();
 }
@@ -47,7 +51,9 @@ class _ViewListButtonState extends State<ViewListButton> {
       ),
       onPressed: () => _fadeTransitionWithPush(
         context,
-        ViewList(),
+        ViewList(
+          invoiceCustomers: widget.invoiceCustomers,
+        ),
       ),
       color: _theme.primaryColor,
       textColor: _theme.accentColor,
