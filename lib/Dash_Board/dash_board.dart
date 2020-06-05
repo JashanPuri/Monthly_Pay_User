@@ -117,7 +117,6 @@ class _DashBoardState extends State<DashBoard>
         MediaQuery.of(context).padding.top;
     double _widthOfScreen = MediaQuery.of(context).size.width;
 
-<<<<<<< HEAD
     return AnimatedBuilder(
         animation: animationController,
         builder: (context, child) {
@@ -217,64 +216,5 @@ class _DashBoardState extends State<DashBoard>
             ),
           );
         });
-=======
-    return Scaffold(
-      appBar: _appBar,
-      bottomNavigationBar: BottomBar(
-        currentTab: 0,
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          _Fade(context, AddCustomer());
-        },
-        child: Icon(
-          Icons.add,
-          color: Theme.of(context).accentColor,
-        ),
-        backgroundColor: Theme.of(context).primaryColor,
-      ),
-      body: CustomPaint(
-        painter: CurvePainter(),
-        child: Container(
-          height: _heightOfScreen,
-          width: _widthOfScreen,
-          child: SingleChildScrollView(
-            child: Column(children: <Widget>[
-              Container(
-                margin: EdgeInsets.symmetric(vertical: 5),
-                height: _heightOfScreen / 5,
-                width: _widthOfScreen * 0.90,
-                child: Amount(),
-              ),
-              Container(
-                margin: EdgeInsets.symmetric(vertical: 5),
-                height: _heightOfScreen / 5,
-                width: _widthOfScreen * 0.90,
-                child: Collection(),
-              ),
-              Container(
-                margin: EdgeInsets.symmetric(vertical: 5),
-                height: _heightOfScreen / 5,
-                width: _widthOfScreen * 0.90,
-                child: Order(),
-              ),
-              Container(
-                margin: EdgeInsets.symmetric(vertical: 5),
-                height: _heightOfScreen / 5,
-                width: _widthOfScreen * 0.90,
-                child: Customer(),
-              ),
-              Container(
-                margin: EdgeInsets.symmetric(vertical: 5),
-                height: _heightOfScreen / 5,
-                width: _widthOfScreen * 0.90,
-                child: Request(),
-              ),
-            ]),
-          ),
-        ),
-      ),
-    );
->>>>>>> 0bca13b924e7044efa39c73c20b23505365bc7fd
   }
 }
