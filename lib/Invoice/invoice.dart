@@ -38,9 +38,6 @@ class _InvoiceState extends State<Invoice> with SingleTickerProviderStateMixin {
 
   AppBar _appBar = AppBar(
     title: Text('Invoice'),
-    actions: <Widget>[
-      IconButton(icon: Icon(Icons.notifications), onPressed: () {}),
-    ],
     elevation: 0.0,
   );
 
