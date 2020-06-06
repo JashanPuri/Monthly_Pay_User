@@ -108,7 +108,7 @@ class _SearchPageState extends State<SearchPage>
       elevation: 0,
       title: GestureDetector(
         onTap: () {
-          showSearch(context: context, delegate: TransactionDelegate());
+          showSearch(context: context, delegate: TransactionDelegate(transactionList: _transactionList));
         },
         child: Container(
           child: Row(

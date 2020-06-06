@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:monthly_pay_user/Search/widgets/transaction_list.dart';
 
 import '../models/TransactionModel.dart';
 
 class TransactionDelegate extends SearchDelegate<CustomerTransaction> {
+  final List<CustomerTransaction> transactionList;
+  TransactionDelegate({this.transactionList});
+
   @override
   List<Widget> buildActions(BuildContext context) {
     // TODO: implement buildActions
@@ -38,7 +42,15 @@ class TransactionDelegate extends SearchDelegate<CustomerTransaction> {
   @override
   Widget buildSuggestions(BuildContext context) {
     // TODO: implement buildSuggestions
-    return Container();
+    final suggestionList = query.isEmpty
+        ? transactionList
+        : transactionList
+            .where((element) =>
+                element.name.toLowerCase().startsWith(query.toLowerCase()))
+            .toList();
+    return TransactionList(
+      transactionList: suggestionList,
+    );
   }
 
   @override
