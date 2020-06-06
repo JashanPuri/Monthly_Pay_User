@@ -117,56 +117,104 @@ class _DashBoardState extends State<DashBoard>
         MediaQuery.of(context).padding.top;
     double _widthOfScreen = MediaQuery.of(context).size.width;
 
-    return Scaffold(
-      appBar: _appBar,
-      bottomNavigationBar: BottomBar(
-        currentTab: 0,
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          _Fade(context, AddCustomer());
-        },
-        child: Icon(
-          Icons.add,
-          color: Theme.of(context).accentColor,
-        ),
-        backgroundColor: Theme.of(context).primaryColor,
-      ),
-      body: CustomPaint(
-        painter: CurvePainter(),
-        child: Container(
-          height: _heightOfScreen,
-          width: _widthOfScreen,
-          child: SingleChildScrollView(
-            child: Column(children: <Widget>[
-              Container(
-                margin: EdgeInsets.symmetric(vertical: 5),
-                height: _heightOfScreen / 5,
-                width: _widthOfScreen * 0.90,
-                child: Amount(),
+    return AnimatedBuilder(
+        animation: animationController,
+        builder: (context, child) {
+          return WillPopScope(
+            onWillPop: _backPressed,
+            child: Scaffold(
+              appBar: _appBar,
+              bottomNavigationBar: BottomBar(
+                currentTab: 0,
               ),
-              Container(
-                margin: EdgeInsets.symmetric(vertical: 5),
-                height: _heightOfScreen / 5,
-                width: _widthOfScreen * 0.90,
-                child: Collection(),
+              floatingActionButton: FloatingActionButton(
+                onPressed: () {
+                  _Fade(context, AddCustomer());
+                },
+                child: Icon(
+                  Icons.add,
+                  color: Theme.of(context).accentColor,
+                ),
+                backgroundColor: Theme.of(context).primaryColor,
               ),
-              Container(
-                margin: EdgeInsets.symmetric(vertical: 5),
-                height: _heightOfScreen / 5,
-                width: _widthOfScreen * 0.90,
-                child: Order(),
+              body: CustomPaint(
+                painter: CurvePainter(),
+                child: Container(
+                  height: _heightOfScreen,
+                  width: _widthOfScreen,
+                  child: SingleChildScrollView(
+                    child: Column(children: <Widget>[
+                      Transform(
+                        transform: Matrix4.translationValues(
+                          animationForAmount.value * _widthOfScreen,
+                          0,
+                          0,
+                        ),
+                        child: Container(
+                          margin: EdgeInsets.symmetric(vertical: 5),
+                          height: _heightOfScreen / 5,
+                          width: _widthOfScreen * 0.90,
+                          child: Amount(),
+                        ),
+                      ),
+                      Transform(
+                        transform: Matrix4.translationValues(
+                          animationForCollection.value * _widthOfScreen,
+                          0,
+                          0,
+                        ),
+                        child: Container(
+                          margin: EdgeInsets.symmetric(vertical: 5),
+                          height: _heightOfScreen / 5,
+                          width: _widthOfScreen * 0.90,
+                          child: Collection(),
+                        ),
+                      ),
+                      Transform(
+                        transform: Matrix4.translationValues(
+                          animationForOrder.value * _widthOfScreen,
+                          0,
+                          0,
+                        ),
+                        child: Container(
+                          margin: EdgeInsets.symmetric(vertical: 5),
+                          height: _heightOfScreen / 5,
+                          width: _widthOfScreen * 0.90,
+                          child: Order(),
+                        ),
+                      ),
+                      Transform(
+                        transform: Matrix4.translationValues(
+                          animationForCustomer.value * _widthOfScreen,
+                          0,
+                          0,
+                        ),
+                        child: Container(
+                          margin: EdgeInsets.symmetric(vertical: 5),
+                          height: _heightOfScreen / 5,
+                          width: _widthOfScreen * 0.90,
+                          child: Customer(),
+                        ),
+                      ),
+                      Transform(
+                        transform: Matrix4.translationValues(
+                          animationForRequest.value * _widthOfScreen,
+                          0,
+                          0,
+                        ),
+                        child: Container(
+                          margin: EdgeInsets.symmetric(vertical: 5),
+                          height: _heightOfScreen / 5,
+                          width: _widthOfScreen * 0.90,
+                          child: Request(),
+                        ),
+                      ),
+                    ]),
+                  ),
+                ),
               ),
-              Container(
-                margin: EdgeInsets.symmetric(vertical: 5),
-                height: _heightOfScreen / 5,
-                width: _widthOfScreen * 0.90,
-                child: Customer(),
-              ),
-            ]),
-          ),
-        ),
-      ),
-    );
+            ),
+          );
+        });
   }
 }
