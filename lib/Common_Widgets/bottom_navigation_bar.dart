@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import '../Search/search_page.dart';
 import '../Dash_Board/dash_board.dart';
 import '../Invoice/invoice.dart';
 import '../Ledger/ledger.dart';
@@ -34,7 +35,7 @@ class _BottomBarState extends State<BottomBar> {
 
   List<Widget> bottomWidgetList = [
     DashBoard(),
-    Text('Transactions'),
+    SearchPage(),
     Ledger(),
     Invoice(),
     Text('Profile'),
