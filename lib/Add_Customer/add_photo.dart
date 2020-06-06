@@ -142,26 +142,22 @@ class _Add_PhotoState extends State<Add_Photo> {
             ],
           ),
           Container(
+            height: h*0.06,
             color: Colors.grey[100],
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                FlatButton(
-                  onPressed: (){
-                    _Fade(context, orderDetail());
-                  },
-                  child: Text(
-                    'Next',
-                    style: Theme.of(context).textTheme.subtitle1
+            child: GestureDetector(
+              onTap: () {
+                _Fade(context, orderDetail());
+              },
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                      'Next  ',
+                      style: Theme.of(context).textTheme.subtitle1
                   ),
-                ),
-                IconButton(
-                  icon: Icon(Icons.arrow_forward_ios,color: Colors.black,),
-                    onPressed: (){
-                      _Fade(context, orderDetail());
-                    }
-                )
-              ],
+                  Icon(Icons.arrow_forward_ios, color: Colors.black,),
+                ],
+              ),
             ),
           )
         ],

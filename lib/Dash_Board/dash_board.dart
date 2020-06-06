@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:monthly_pay_user/Service_Request/service_request.dart';
 
 import '../Common_Widgets/bottom_navigation_bar.dart';
 import '../Common_Widgets/curve_painter.dart';
@@ -66,14 +67,6 @@ class _DashBoardState extends State<DashBoard>
     animationController.forward();
   }
 
-  AppBar _appBar = AppBar(
-    title: Text('Dashboard'),
-    actions: <Widget>[
-      IconButton(icon: Icon(Icons.notifications), onPressed: () {}),
-    ],
-    elevation: 0.0,
-  );
-
   Future<bool> _backPressed() {
     return showDialog(
         context: context,
@@ -112,6 +105,18 @@ class _DashBoardState extends State<DashBoard>
 
   @override
   Widget build(BuildContext context) {
+    AppBar _appBar = AppBar(
+              title: Text('Dashboard'),
+              actions: <Widget>[
+              IconButton(
+              icon: Icon(Icons.notifications),
+                  onPressed: () {
+                          _Fade(context, serviceRequest());
+                }
+              )],
+          elevation: 0.0,
+    );
+
     double _heightOfScreen = MediaQuery.of(context).size.height -
         _appBar.preferredSize.height -
         MediaQuery.of(context).padding.top;
@@ -162,6 +167,12 @@ class _DashBoardState extends State<DashBoard>
                 height: _heightOfScreen / 5,
                 width: _widthOfScreen * 0.90,
                 child: Customer(),
+              ),
+              Container(
+                margin: EdgeInsets.symmetric(vertical: 5),
+                height: _heightOfScreen / 5,
+                width: _widthOfScreen * 0.90,
+                child: Request(),
               ),
             ]),
           ),
