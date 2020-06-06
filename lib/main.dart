@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:monthly_pay_user/Dash_Board/dash_board.dart';
 
-
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations([
@@ -12,7 +11,7 @@ void main() {
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget  {
+class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -22,30 +21,25 @@ class MyApp extends StatelessWidget  {
         primaryColor: Colors.lightBlue[600],
         accentColor: Colors.white,
         textTheme: TextTheme(
-          headline5: TextStyle(
-            color: Colors.white,
-            fontSize: 25,
-            fontFamily: 'BenchNine'
-          ),
-          headline6: TextStyle(
-            color: Colors.black,
-            fontSize: 30,
+            headline5: TextStyle(
+                color: Colors.white, fontSize: 25, fontFamily: 'BenchNine'),
+            headline6: TextStyle(
+              color: Colors.black,
+              fontSize: 30,
               fontFamily: 'SIMPLIFICA',
-            fontWeight: FontWeight.bold,
-          ),
-          subtitle1: TextStyle(
-            color: Colors.black87,
-            fontWeight: FontWeight.w500,
-            fontFamily: 'BenchNine',
-
-            fontSize: 20,
-          ),
-          subtitle2: TextStyle(
-            color: Colors.grey[600],
-            fontSize: 17,
-            fontFamily: 'BenchNine',
-          )
-        ),
+              fontWeight: FontWeight.bold,
+            ),
+            subtitle1: TextStyle(
+              color: Colors.black87,
+              fontWeight: FontWeight.w500,
+              fontFamily: 'BenchNine',
+              fontSize: 20,
+            ),
+            subtitle2: TextStyle(
+              color: Colors.grey[600],
+              fontSize: 17,
+              fontFamily: 'BenchNine',
+            )),
       ),
       home: DashBoard(),
     );

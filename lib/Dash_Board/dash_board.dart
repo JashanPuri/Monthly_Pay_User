@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:monthly_pay_user/Service_Request/service_request.dart';
 
 import '../Common_Widgets/bottom_navigation_bar.dart';
 import '../Common_Widgets/curve_painter.dart';
@@ -67,6 +66,14 @@ class _DashBoardState extends State<DashBoard>
     animationController.forward();
   }
 
+  AppBar _appBar = AppBar(
+    title: Text('Dashboard'),
+    actions: <Widget>[
+      IconButton(icon: Icon(Icons.notifications), onPressed: () {}),
+    ],
+    elevation: 0.0,
+  );
+
   Future<bool> _backPressed() {
     return showDialog(
         context: context,
@@ -105,79 +112,109 @@ class _DashBoardState extends State<DashBoard>
 
   @override
   Widget build(BuildContext context) {
-    AppBar _appBar = AppBar(
-              title: Text('Dashboard'),
-              actions: <Widget>[
-              IconButton(
-              icon: Icon(Icons.notifications),
-                  onPressed: () {
-                          _Fade(context, serviceRequest());
-                }
-              )],
-          elevation: 0.0,
-    );
-
     double _heightOfScreen = MediaQuery.of(context).size.height -
         _appBar.preferredSize.height -
         MediaQuery.of(context).padding.top;
     double _widthOfScreen = MediaQuery.of(context).size.width;
 
-    return Scaffold(
-      appBar: _appBar,
-      bottomNavigationBar: BottomBar(
-        currentTab: 0,
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          _Fade(context, AddCustomer());
-        },
-        child: Icon(
-          Icons.add,
-          color: Theme.of(context).accentColor,
-        ),
-        backgroundColor: Theme.of(context).primaryColor,
-      ),
-      body: CustomPaint(
-        painter: CurvePainter(),
-        child: Container(
-          height: _heightOfScreen,
-          width: _widthOfScreen,
-          child: SingleChildScrollView(
-            child: Column(children: <Widget>[
-              Container(
-                margin: EdgeInsets.symmetric(vertical: 5),
-                height: _heightOfScreen / 5,
-                width: _widthOfScreen * 0.90,
-                child: Amount(),
+    return AnimatedBuilder(
+        animation: animationController,
+        builder: (context, child) {
+          return WillPopScope(
+            onWillPop: _backPressed,
+            child: Scaffold(
+              appBar: _appBar,
+              bottomNavigationBar: BottomBar(
+                currentTab: 0,
               ),
-              Container(
-                margin: EdgeInsets.symmetric(vertical: 5),
-                height: _heightOfScreen / 5,
-                width: _widthOfScreen * 0.90,
-                child: Collection(),
+              floatingActionButton: FloatingActionButton(
+                onPressed: () {
+                  _Fade(context, AddCustomer());
+                },
+                child: Icon(
+                  Icons.add,
+                  color: Theme.of(context).accentColor,
+                ),
+                backgroundColor: Theme.of(context).primaryColor,
               ),
-              Container(
-                margin: EdgeInsets.symmetric(vertical: 5),
-                height: _heightOfScreen / 5,
-                width: _widthOfScreen * 0.90,
-                child: Order(),
+              body: CustomPaint(
+                painter: CurvePainter(),
+                child: Container(
+                  height: _heightOfScreen,
+                  width: _widthOfScreen,
+                  child: SingleChildScrollView(
+                    child: Column(children: <Widget>[
+                      Transform(
+                        transform: Matrix4.translationValues(
+                          animationForAmount.value * _widthOfScreen,
+                          0,
+                          0,
+                        ),
+                        child: Container(
+                          margin: EdgeInsets.symmetric(vertical: 5),
+                          height: _heightOfScreen / 5,
+                          width: _widthOfScreen * 0.90,
+                          child: Amount(),
+                        ),
+                      ),
+                      Transform(
+                        transform: Matrix4.translationValues(
+                          animationForCollection.value * _widthOfScreen,
+                          0,
+                          0,
+                        ),
+                        child: Container(
+                          margin: EdgeInsets.symmetric(vertical: 5),
+                          height: _heightOfScreen / 5,
+                          width: _widthOfScreen * 0.90,
+                          child: Collection(),
+                        ),
+                      ),
+                      Transform(
+                        transform: Matrix4.translationValues(
+                          animationForOrder.value * _widthOfScreen,
+                          0,
+                          0,
+                        ),
+                        child: Container(
+                          margin: EdgeInsets.symmetric(vertical: 5),
+                          height: _heightOfScreen / 5,
+                          width: _widthOfScreen * 0.90,
+                          child: Order(),
+                        ),
+                      ),
+                      Transform(
+                        transform: Matrix4.translationValues(
+                          animationForCustomer.value * _widthOfScreen,
+                          0,
+                          0,
+                        ),
+                        child: Container(
+                          margin: EdgeInsets.symmetric(vertical: 5),
+                          height: _heightOfScreen / 5,
+                          width: _widthOfScreen * 0.90,
+                          child: Customer(),
+                        ),
+                      ),
+                      Transform(
+                        transform: Matrix4.translationValues(
+                          animationForRequest.value * _widthOfScreen,
+                          0,
+                          0,
+                        ),
+                        child: Container(
+                          margin: EdgeInsets.symmetric(vertical: 5),
+                          height: _heightOfScreen / 5,
+                          width: _widthOfScreen * 0.90,
+                          child: Request(),
+                        ),
+                      ),
+                    ]),
+                  ),
+                ),
               ),
-              Container(
-                margin: EdgeInsets.symmetric(vertical: 5),
-                height: _heightOfScreen / 5,
-                width: _widthOfScreen * 0.90,
-                child: Customer(),
-              ),
-              Container(
-                margin: EdgeInsets.symmetric(vertical: 5),
-                height: _heightOfScreen / 5,
-                width: _widthOfScreen * 0.90,
-                child: Request(),
-              ),
-            ]),
-          ),
-        ),
-      ),
-    );
+            ),
+          );
+        });
   }
 }
