@@ -36,7 +36,12 @@ class TransactionDelegate extends SearchDelegate<CustomerTransaction> {
   @override
   Widget buildResults(BuildContext context) {
     // TODO: implement buildResults
-    return Container();
+    return TransactionList(
+      transactionList: transactionList
+          .where((element) =>
+              element.name.toLowerCase().startsWith(query.toLowerCase()))
+          .toList(),
+    );
   }
 
   @override
