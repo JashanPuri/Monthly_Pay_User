@@ -28,228 +28,196 @@ class _authorizedPersonState extends State<authorizedPersonPage> {
     }
   }
 
-
   @override
   Widget build(BuildContext context) {
-    final h= MediaQuery.of(context).size.height;
-    final w= MediaQuery.of(context).size.width;
+    final h = MediaQuery.of(context).size.height;
+    final w = MediaQuery.of(context).size.width;
     return Scaffold(
-        appBar: AppBar(
-          elevation: 0,
-          title:
-          Text('Authorized Person Detail', style: Theme
-              .of(context)
-              .textTheme
-              .headline5),
-          backgroundColor: Theme
-              .of(context)
-              .primaryColor,
-          actions: [
-            FlatButton(
-              child: Text(
-                'Log Out',
-                style: TextStyle(
-                    fontSize: 15,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white),
+      appBar: AppBar(
+        elevation: 0,
+        title: Text('Authorized Person Detail',
+            style: Theme.of(context).textTheme.headline5),
+        backgroundColor: Theme.of(context).primaryColor,
+        actions: [
+          FlatButton(
+            child: Text(
+              'Log Out',
+              style: TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white),
+            ),
+            onPressed: () {},
+          )
+        ],
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Stack(alignment: Alignment.topCenter, children: [
+              Container(
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.only(
+                        bottomRight: Radius.elliptical(40, 30),
+                        bottomLeft: Radius.elliptical(40, 30)),
+                    color: Colors.lightBlue),
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height * 0.25,
               ),
-              onPressed: () {},
-            )
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  GestureDetector(
+                    onTap: getImage,
+                    child: Container(
+                        height: 140,
+                        width: 140,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(60)),
+                        child: _image != null
+                            ? new Container(
+                                width: 190.0,
+                                height: 190.0,
+                                decoration: new BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    image: new DecorationImage(
+                                        fit: BoxFit.fill,
+                                        image: FileImage(_image))))
+                            : Stack(
+                                children: [
+                                  IconButton(
+                                    icon: Icon(Icons.account_circle,
+                                        color: Theme.of(context).accentColor),
+                                    iconSize: 140,
+                                    onPressed: getImage,
+                                  ),
+                                  Positioned(
+                                    left: 100,
+                                    top: 100,
+                                    child: CircleAvatar(
+                                        child: IconButton(
+                                            onPressed: getImage,
+                                            icon: Icon(Icons.edit))),
+                                  )
+                                ],
+                              )),
+                  ),
+                  name != null && name != ' '
+                      ? Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            SizedBox(width: 20),
+                            Text(
+                              name,
+                              style: Theme.of(context).textTheme.headline5,
+                            ),
+                          ],
+                        )
+                      : Text(
+                          '',
+                          style: Theme.of(context).textTheme.headline5,
+                        )
+                ],
+              ),
+            ]),
+            ListTile(
+                title: Text(
+                  'Name',
+                  style: Theme.of(context).textTheme.subtitle1,
+                ),
+                subtitle: TextField(
+                  decoration: InputDecoration(
+                      hintStyle: Theme.of(context).textTheme.subtitle2,
+                      hintText: 'Full Name'),
+                  onSubmitted: (value) {
+                    setState(() {
+                      name = value;
+                    });
+                  },
+                )),
+            SizedBox(height: 20),
+            ListTile(
+              subtitle: Column(
+                children: [
+                  Text(
+                    'Add Mobile Number',
+                    style: Theme.of(context)
+                        .textTheme
+                        .subtitle1
+                        .copyWith(fontSize: 22),
+                  ),
+                  Row(
+                    children: <Widget>[
+                      Expanded(
+                        child: TextField(
+                          decoration: InputDecoration(
+                              hintStyle: Theme.of(context).textTheme.subtitle2,
+                              hintText: 'Mobile Number'),
+                          keyboardType: TextInputType.number,
+                          onChanged: (value) {
+                            setState(() {
+                              MobNum = value;
+                            });
+                          },
+                          onSubmitted: (value) {
+                            setState(() {
+                              name = value;
+                            });
+                          },
+                        ),
+                      ),
+                      IconButton(
+                        onPressed: () {},
+                        icon: Icon(Icons.add_circle),
+                      )
+                    ],
+                  )
+                ],
+              ),
+            ),
+            SizedBox(height: 40),
+            ListTile(
+              title: Text(
+                'Address Detail',
+                style: Theme.of(context).textTheme.subtitle1,
+              ),
+              subtitle: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  TypeAheadField(
+                      textFieldConfiguration: TextFieldConfiguration(
+                        decoration: InputDecoration(labelText: 'State'),
+                        controller: this._typeAheadController,
+                      ),
+                      suggestionsCallback: (pattern) async {
+                        return await StateService.getSuggestions(pattern);
+                      },
+                      transitionBuilder: (context, suggestionsBox, controller) {
+                        return suggestionsBox;
+                      },
+                      itemBuilder: (context, suggestion) {
+                        return ListTile(
+                          title: Text(suggestion),
+                        );
+                      },
+                      onSuggestionSelected: (suggestion) {
+                        this._typeAheadController.text = suggestion;
+                      }),
+                  tile(context, 'District'),
+                  tile(context, 'Tehsil'),
+                  tile(context, 'City'),
+                  tile(context, 'Pin'),
+                  tile(context, 'Landmark'),
+                  tile(context, 'Email'),
+                  SizedBox(
+                    height: h * 0.05,
+                  )
+                ],
+              ),
+            ),
           ],
         ),
-        body: SingleChildScrollView(
-          child: Column(
-            children: [
-              Stack(alignment: Alignment.topCenter, children: [
-                Container(
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.only(
-                          bottomRight: Radius.elliptical(40, 30),
-                          bottomLeft: Radius.elliptical(40, 30)),
-                      color: Colors.lightBlue),
-                  width: MediaQuery
-                      .of(context)
-                      .size
-                      .width,
-                  height: MediaQuery
-                      .of(context)
-                      .size
-                      .height * 0.25,
-                ),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    GestureDetector(
-                      onTap: getImage,
-                      child: Container(
-                          height: 140,
-                          width: 140,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(60)),
-                          child: _image != null
-                              ? new Container(
-                              width: 190.0,
-                              height: 190.0,
-                              decoration: new BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  image: new DecorationImage(
-                                      fit: BoxFit.fill,
-                                      image: FileImage(_image))))
-                              : Stack(
-                            children: [
-                              IconButton(
-                                icon: Icon(Icons.account_circle,
-                                    color: Theme
-                                        .of(context)
-                                        .accentColor),
-                                iconSize: 140,
-                                onPressed: getImage,
-                              ),
-                              Positioned(
-                                left: 100,
-                                top: 100,
-                                child: CircleAvatar(
-                                    child: IconButton(
-                                        onPressed: getImage,
-                                        icon: Icon(Icons.edit))),
-                              )
-                            ],
-                          )),
-                    ),
-                    name != null && name != ' '
-                        ? Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        SizedBox(width: 20),
-                        Text(
-                          name,
-                          style: Theme
-                              .of(context)
-                              .textTheme
-                              .headline5,
-                        ),
-                      ],
-                    )
-                        : Text(
-                      '',
-                      style: Theme
-                          .of(context)
-                          .textTheme
-                          .headline5,
-                    )
-                  ],
-                ),
-              ]),
-              ListTile(
-                  title: Text(
-                    'Name',
-                    style: Theme
-                        .of(context)
-                        .textTheme
-                        .subtitle1,
-                  ),
-                  subtitle: TextField(
-                    decoration: InputDecoration(
-                        hintStyle: Theme
-                            .of(context)
-                            .textTheme
-                            .subtitle2,
-                        hintText: 'Full Name'),
-                    onSubmitted: (value) {
-                      setState(() {
-                        name = value;
-                      });
-                    },
-                  )),
-              SizedBox(height: 20),
-              ListTile(
-                subtitle: Column(
-                  children: [
-                    Text(
-                      'Add Mobile Number',
-                      style: Theme
-                          .of(context)
-                          .textTheme
-                          .subtitle1
-                          .copyWith(fontSize: 22),
-                    ),
-                    Row(
-                      children: <Widget>[
-                        Expanded(
-                          child: TextField(
-                            decoration: InputDecoration(
-                                hintStyle:
-                                Theme
-                                    .of(context)
-                                    .textTheme
-                                    .subtitle2,
-                                hintText: 'Mobile Number'),
-                            keyboardType: TextInputType.number,
-                            onChanged: (value) {
-                              setState(() {
-                                MobNum = value;
-                              });
-                            },
-                            onSubmitted: (value) {
-                              setState(() {
-                                name = value;
-                              });
-                            },
-                          ),
-                        ),
-                        IconButton(
-                          icon: Icon(Icons.add_circle),
-                        )
-                      ],
-                    )
-                  ],
-                ),
-              ),
-              SizedBox(height: 40),
-              ListTile(
-                title: Text(
-                  'Address Detail',
-                  style: Theme
-                      .of(context)
-                      .textTheme
-                      .subtitle1,
-                ),
-                subtitle: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    TypeAheadField(
-                        textFieldConfiguration: TextFieldConfiguration(
-                          decoration: InputDecoration(labelText: 'State'),
-                          controller: this._typeAheadController,
-                        ),
-                        suggestionsCallback: (pattern) async {
-                          return await StateService.getSuggestions(pattern);
-                        },
-                        transitionBuilder:
-                            (context, suggestionsBox, controller) {
-                          return suggestionsBox;
-                        },
-                        itemBuilder: (context, suggestion) {
-                          return ListTile(
-                            title: Text(suggestion),
-                          );
-                        },
-                        onSuggestionSelected: (suggestion) {
-                          this._typeAheadController.text = suggestion;
-                        }),
-                    tile(context, 'District'),
-                    tile(context, 'Tehsil'),
-                    tile(context, 'City'),
-                    tile(context, 'Pin'),
-                    tile(context, 'Landmark'),
-                    tile(context, 'Email'),
-                    SizedBox(height: h*0.05 ,)
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
+      ),
     );
   }
 
@@ -257,10 +225,7 @@ class _authorizedPersonState extends State<authorizedPersonPage> {
     return TextField(
       style: TextStyle(color: Colors.black),
       decoration: InputDecoration(
-          hintText: str, hintStyle: Theme
-          .of(context)
-          .textTheme
-          .subtitle2),
+          hintText: str, hintStyle: Theme.of(context).textTheme.subtitle2),
     );
   }
 
@@ -329,7 +294,6 @@ class StateService {
     'TELANGANA'
   ];
 
-
   static List<String> getSuggestions(String query) {
     List<String> matches = List();
     matches.addAll(states);
@@ -337,4 +301,3 @@ class StateService {
     return matches;
   }
 }
-

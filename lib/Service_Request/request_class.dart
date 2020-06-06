@@ -12,6 +12,5 @@ class request_class{
     @required this.mobile,
     @required this.date,
     @required this.amount,
-    @required description
   });
 }

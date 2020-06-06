@@ -5,7 +5,7 @@ import '../Search/search_page.dart';
 import '../Dash_Board/dash_board.dart';
 import '../Invoice/invoice.dart';
 import '../Ledger/ledger.dart';
-
+import '../profile/profile.dart';
 class BottomBar extends StatefulWidget {
   final int currentTab;
   BottomBar({this.currentTab});
@@ -38,7 +38,7 @@ class _BottomBarState extends State<BottomBar> {
     SearchPage(),
     Ledger(),
     Invoice(),
-    Text('Profile'),
+    ProfilePage(),
   ];
 
   @override

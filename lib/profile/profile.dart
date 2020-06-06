@@ -204,6 +204,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           ),
                         ),
                         IconButton(
+                          onPressed: () {},
                             icon: Icon(Icons.add_circle),
                             )
                       ],
