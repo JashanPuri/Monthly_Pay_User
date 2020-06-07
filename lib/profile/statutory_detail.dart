@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:monthly_pay_user/Dash_Board/dash_board.dart';
 
 import 'bank_detail.dart';
 class statutoryDetail extends StatefulWidget {
@@ -11,9 +12,17 @@ class _statutoryDetailState extends State<statutoryDetail> {
   Widget build(BuildContext context) {
     final appbar = AppBar(
       title: Text('Statutory Detail'),
+      actions: [
+        IconButton(
+          icon: Icon(Icons.home),
+          onPressed: (){
+            _Fade(context, DashBoard());
+          },
+        )
+      ],
     );
     final h= MediaQuery.of(context).size.height-MediaQuery.of(context).padding.top;
-    final w= MediaQuery.of(context).size.width;
+    //final w= MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: appbar,
       body: SingleChildScrollView(
@@ -33,7 +42,15 @@ class _statutoryDetailState extends State<statutoryDetail> {
                   tile(context,'GST Number'),
                   tile(context,'PAN Number '),
                   tile(context,'TAX Number'),
-
+                  FlatButton(
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                    color: Theme.of(context).primaryColor,
+                    onPressed: (){},
+                    child: Text(
+                      'Save Details',
+                      style: Theme.of(context).textTheme.headline5,
+                    ),
+                  )
                 ],
               ),
             ),

@@ -3,9 +3,7 @@ import 'package:flutter/material.dart';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
-import 'package:monthly_pay_user/Common_Widgets/bottom_navigation_bar.dart';
 import 'package:monthly_pay_user/Dash_Board/dash_board.dart';
-import 'package:monthly_pay_user/profile/business_detail.dart';
 
 class authorizedPersonPage extends StatefulWidget {
   @override
@@ -19,15 +17,26 @@ class _authorizedPersonState extends State<authorizedPersonPage> {
   final TextEditingController _typeAheadController = TextEditingController();
   int _currentTab = 3;
 
-  Future getImage() async {
-    final image = await ImagePicker.pickImage(source: ImageSource.gallery);
-    if (image != null) {
-      setState(() {
-        _image = image;
-      });
+  Future getImage(int k) async{
+    if(k==0){
+      final image = await ImagePicker.pickImage(source: ImageSource.camera);
+      if (image!=null)
+      {
+        setState(() {
+          _image=image;
+        });
+      }
+    }
+    else{
+      final image = await ImagePicker.pickImage(source: ImageSource.gallery);
+      if (image!=null)
+      {
+        setState(() {
+          _image=image;
+        });
+      }
     }
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -54,6 +63,12 @@ class _authorizedPersonState extends State<authorizedPersonPage> {
                     color: Colors.white),
               ),
               onPressed: () {},
+            ),
+            IconButton(
+              icon: Icon(Icons.home),
+              onPressed: (){
+                _Fade(context, DashBoard());
+              },
             )
           ],
         ),
@@ -80,7 +95,9 @@ class _authorizedPersonState extends State<authorizedPersonPage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     GestureDetector(
-                      onTap: getImage,
+                      onTap: (){
+                        _startAddNewTransaction(context);
+                      },
                       child: Container(
                           height: 140,
                           width: 140,
@@ -97,20 +114,25 @@ class _authorizedPersonState extends State<authorizedPersonPage> {
                                       image: FileImage(_image))))
                               : Stack(
                             children: [
-                              IconButton(
-                                icon: Icon(Icons.account_circle,
-                                    color: Theme
-                                        .of(context)
-                                        .accentColor),
-                                iconSize: 140,
-                                onPressed: getImage,
-                              ),
+                              Container(
+                                  width: h*0.24,
+                                  height: h*0.24,
+                                  decoration: new BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      image: new DecorationImage(
+                                          fit: BoxFit.fill,
+                                          image: _image!=null ? FileImage(_image)
+                                              : AssetImage('assets/images/account_img.jpg')
+                                      )
+                                  )),
                               Positioned(
                                 left: 100,
                                 top: 100,
                                 child: CircleAvatar(
                                     child: IconButton(
-                                        onPressed: getImage,
+                                        onPressed: (){
+                                           _startAddNewTransaction(context);
+                                           },
                                         icon: Icon(Icons.edit))),
                               )
                             ],
@@ -198,6 +220,7 @@ class _authorizedPersonState extends State<authorizedPersonPage> {
                           ),
                         ),
                         IconButton(
+                          onPressed: (){},
                           icon: Icon(Icons.add_circle),
                         )
                       ],
@@ -243,14 +266,99 @@ class _authorizedPersonState extends State<authorizedPersonPage> {
                     tile(context, 'Pin'),
                     tile(context, 'Landmark'),
                     tile(context, 'Email'),
-                    SizedBox(height: h*0.05 ,)
+                    SizedBox(height: h*0.02,)
                   ],
                 ),
               ),
+              FlatButton(
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                color: Theme.of(context).primaryColor,
+                onPressed: (){},
+                child: Text(
+                  'Save Details',
+                  style: Theme.of(context).textTheme.headline5,
+                ),
+              ),
+              SizedBox(height: h*0.02,)
             ],
           ),
         ),
     );
+  }
+
+  void _startAddNewTransaction(BuildContext ctx){
+    double h = MediaQuery.of(ctx).size.height;
+    showModalBottomSheet(context: ctx, builder: (_){
+      return Container(
+        height: h*0.22,
+        padding: EdgeInsets.only(top: 20),
+        child: GestureDetector(
+          onTap: (){},
+          child:Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Column(
+                children: [
+                  GestureDetector(
+                    onTap: (){
+                      getImage(0);
+                    },
+                    child: Container(
+                        height: h*0.14,
+                        width: h*0.14,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(h*0.07),
+                          color: Colors.grey,
+                        ),
+                        child: new Container(
+                            width: h*0.14,
+                            height: h*0.14,
+                            decoration: new BoxDecoration(
+                                shape: BoxShape.circle,
+                                image: new DecorationImage(
+                                    fit: BoxFit.fill,
+                                    image: AssetImage('assets/images/camera_icon.jpg')
+                                )
+                            ))
+                    ),
+                  ),
+                  Text('Camera')
+                ],
+              ),
+              Column(
+                children: [
+                  GestureDetector(
+                    onTap: (){
+                      getImage(1);
+                    },
+                    child: Container(
+                        height: h*0.14,
+                        width: h*0.14,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(h*0.07),
+                          color: Colors.grey,
+                        ),
+                        child: new Container(
+                            width: h*0.14,
+                            height: h*0.14,
+                            decoration: new BoxDecoration(
+                                shape: BoxShape.circle,
+                                image: new DecorationImage(
+                                    fit: BoxFit.fill,
+                                    image: AssetImage('assets/images/gallery_icon.jpg')
+                                )
+                            ))
+                    ),
+                  ),
+                  Text('Gallery')
+                ],
+              ),
+            ],
+          ),
+          behavior: HitTestBehavior.opaque,
+        ),
+      );
+    });
   }
 
   Widget tile(BuildContext context, String str) {

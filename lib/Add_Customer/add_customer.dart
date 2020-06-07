@@ -1,5 +1,6 @@
 import 'package:dropdownfield/dropdownfield.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:monthly_pay_user/Common_Widgets/curve_painter.dart';
 import './add_photo.dart';
 
@@ -9,54 +10,7 @@ class AddCustomer extends StatefulWidget {
 }
 
 class _AddCustomerState extends State<AddCustomer> {
-  static const statesList = <String>[
-    'ANDAMAN AND NICOBAR ISLANDS',
-    'ANDHRA PRADESH',
-    'ARUNACHAL PRADESH',
-    'ASSAM',
-    'BIHAR',
-    'CHATTISGARH',
-    'CHANDIGARH',
-    'DAMAN AND DIU',
-    'DELHI',
-    'DADRA AND NAGAR HAVELI',
-    'GOA',
-    'GUJARAT',
-    'HIMACHAL PRADESH',
-    'HARYANA',
-    'JAMMU AND KASHMIR',
-    'JHARKHAND',
-    'KERALA',
-    'KARNATAKA',
-    'LAKSHADWEEP',
-    'MEGHALAYA',
-    'MAHARASHTRA',
-    'MANIPUR',
-    'MADHYA PRADESH',
-    'MIZORAM',
-    'NAGALAND',
-    'ORISSA',
-    'PUNJAB',
-    'PONDICHERRY',
-    'RAJASTHAN',
-    'SIKKIM',
-    'TAMIL NADU',
-    'TRIPURA',
-    'UTTARAKHAND',
-    'UTTAR PRADESH',
-    'WEST BENGAL',
-    'TELANGANA'
-  ];
-  final List<DropdownMenuItem<String>> _dropDownStateItems = statesList
-      .map(
-          (String value) =>
-          DropdownMenuItem<String>(
-              value: value,
-              child: Text(value)
-          )
-  ).toList();
-  String _selectedState;
-
+  final TextEditingController _typeAheadController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     final appbar = AppBar(
@@ -143,21 +97,29 @@ class _AddCustomerState extends State<AddCustomer> {
                           ),
                         ),
                         Container(
-                          padding: EdgeInsets.only(
-                              left: 8, right: 8, top: 8, bottom: 10),
-                          width: w * 0.9,
-                          height: w*0.25,
-                          child: DropdownButton(
-                            items: _dropDownStateItems,
-                            iconSize: 40,
-                            hint: Text('State'),
-                            onChanged: (value){
-                              setState(() {
-                                _selectedState = value;
-                              });
-                            },
-                            value: _selectedState,
-                          ),
+                          padding: EdgeInsets.all(8),
+                          width: w * 0.95,
+                          child: TypeAheadField(
+                            direction: AxisDirection.up,
+                              textFieldConfiguration: TextFieldConfiguration(
+                                decoration: InputDecoration(labelText: 'State'),
+                                controller: this._typeAheadController,
+                              ),
+                              suggestionsCallback: (pattern) async {
+                                return await StateService.getSuggestions(pattern);
+                              },
+                              transitionBuilder:
+                                  (context, suggestionsBox, controller) {
+                                return suggestionsBox;
+                              },
+                              itemBuilder: (context, suggestion) {
+                                return ListTile(
+                                  title: Text(suggestion),
+                                );
+                              },
+                              onSuggestionSelected: (suggestion) {
+                                this._typeAheadController.text = suggestion;
+                              }),
                         ),
                         Container(
                           padding: EdgeInsets.only(
@@ -249,36 +211,29 @@ class _AddCustomerState extends State<AddCustomer> {
                       ],
                     )
                 ),
-                Container(
-                  color: Colors.grey[100],
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      FlatButton(
-                        onPressed: () {
-                          _Fade(context, Add_Photo());
-                        },
-                        child: Text(
-                          'Next',
-                          style: Theme.of(context).textTheme.subtitle1
-                        ),
-                      ),
-                      IconButton(
-                        icon: Icon(
-                          Icons.arrow_forward_ios, color: Colors.black,),
-                        onPressed: () {
-                          _Fade(context, Add_Photo());
-                        },
-                      )
-                    ],
-                  ),
-                )
-              ],
+            Container(
+              height: h*0.06,
+              color: Colors.grey[100],
+              child: GestureDetector(
+                onTap: () {
+                  _Fade(context, Add_Photo());
+                },
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                        'Next  ',
+                        style: Theme.of(context).textTheme.subtitle1
+                    ),
+                    Icon(Icons.arrow_forward_ios, color: Colors.black,),
+                  ],
+                ),
+              )
             ),
-          ),
+          ]),
         ),
       ),
-    );
+      ));
   }
 
   void _Fade(BuildContext context, Widget widget) {
@@ -299,3 +254,63 @@ class _AddCustomerState extends State<AddCustomer> {
     );
   }
 }
+
+class BackendService {
+  static Future<List> getSuggestions(String query) async {
+    await Future.delayed(Duration(seconds: 1));
+
+    return List.generate(3, (index) {
+      return {'name': query + index.toString()};
+    });
+  }
+}
+
+class StateService {
+  static final List<String> states = [
+    'ANDAMAN AND NICOBAR ISLANDS',
+    'ANDHRA PRADESH',
+    'ARUNACHAL PRADESH',
+    'ASSAM',
+    'BIHAR',
+    'CHATTISGARH',
+    'CHANDIGARH',
+    'DAMAN AND DIU',
+    'DELHI',
+    'DADRA AND NAGAR HAVELI',
+    'GOA',
+    'GUJARAT',
+    'HIMACHAL PRADESH',
+    'HARYANA',
+    'JAMMU AND KASHMIR',
+    'JHARKHAND',
+    'KERALA',
+    'KARNATAKA',
+    'LAKSHADWEEP',
+    'MEGHALAYA',
+    'MAHARASHTRA',
+    'MANIPUR',
+    'MADHYA PRADESH',
+    'MIZORAM',
+    'NAGALAND',
+    'ORISSA',
+    'PUNJAB',
+    'PONDICHERRY',
+    'RAJASTHAN',
+    'SIKKIM',
+    'TAMIL NADU',
+    'TRIPURA',
+    'UTTARAKHAND',
+    'UTTAR PRADESH',
+    'WEST BENGAL',
+    'TELANGANA'
+  ];
+
+
+  static List<String> getSuggestions(String query) {
+    List<String> matches = List();
+    matches.addAll(states);
+    matches.retainWhere((s) => s.toLowerCase().contains(query.toLowerCase()));
+    return matches;
+  }
+}
+

@@ -19,12 +19,24 @@ class _ProfilePageState extends State<ProfilePage> {
   final TextEditingController _typeAheadController = TextEditingController();
   int _currentTab = 3;
 
-  Future getImage() async {
-    final image = await ImagePicker.pickImage(source: ImageSource.gallery);
-    if (image != null) {
-      setState(() {
-        _image = image;
-      });
+  Future getImage(int k) async{
+    if(k==0){
+      final image = await ImagePicker.pickImage(source: ImageSource.camera);
+      if (image!=null)
+      {
+        setState(() {
+          _image=image;
+        });
+      }
+    }
+    else{
+      final image = await ImagePicker.pickImage(source: ImageSource.gallery);
+      if (image!=null)
+      {
+        setState(() {
+          _image=image;
+        });
+      }
     }
   }
 
@@ -86,7 +98,9 @@ class _ProfilePageState extends State<ProfilePage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     GestureDetector(
-                      onTap: getImage,
+                            onTap: (){
+                                  _startAddNewTransaction(context);
+                              },
                       child: Container(
                           height: 140,
                           width: 140,
@@ -103,20 +117,25 @@ class _ProfilePageState extends State<ProfilePage> {
                                       image: FileImage(_image))))
                               : Stack(
                             children: [
-                              IconButton(
-                                icon: Icon(Icons.account_circle,
-                                    color: Theme
-                                        .of(context)
-                                        .accentColor),
-                                iconSize: 140,
-                                onPressed: getImage,
-                              ),
+                              Container(
+                                  width: h*0.24,
+                                  height: h*0.24,
+                                  decoration: new BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      image: new DecorationImage(
+                                          fit: BoxFit.fill,
+                                          image: _image!=null ? FileImage(_image)
+                                              : AssetImage('assets/images/account_img.jpg')
+                                      )
+                                  )),
                               Positioned(
                                 left: 100,
                                 top: 100,
                                 child: CircleAvatar(
                                     child: IconButton(
-                                        onPressed: getImage,
+                                        onPressed: (){
+                                          _startAddNewTransaction(context);
+                                        },
                                         icon: Icon(Icons.edit))),
                               )
                             ],
@@ -204,6 +223,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           ),
                         ),
                         IconButton(
+                          onPressed: (){},
                             icon: Icon(Icons.add_circle),
                             )
                       ],
@@ -251,44 +271,37 @@ class _ProfilePageState extends State<ProfilePage> {
                   ],
                 ),
               ),
-              SizedBox(height: 20),
+              SizedBox(height: h*0.05),
+              FlatButton(
+                color: Colors.lightBlue,
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                child: Text(
+                  'Save Details',
+                  style: Theme
+                      .of(context)
+                      .textTheme
+                      .headline5,
+                ),
+                onPressed: () {},
+              ),
+              SizedBox(height: h*0.05),
               Container(
-                padding: EdgeInsets.all(6),
+                height: h*0.06,
                 color: Colors.grey[100],
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    FlatButton(
-                      //color: Colors.lightBlue,
-                      child: Text(
-                        'Save Details',
-                        style: Theme
-                            .of(context)
-                            .textTheme
-                            .subtitle1,
+                child: GestureDetector(
+                  onTap: () {
+                    _Fade(context, businesssDetail());
+                  },
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                          'Next  ',
+                          style: Theme.of(context).textTheme.subtitle1
                       ),
-                      onPressed: () {},
-                    ),
-                    Container(
-                      height: h*0.06,
-                      color: Colors.grey[100],
-                      child: GestureDetector(
-                        onTap: () {
-                          _Fade(context, businesssDetail());
-                        },
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                                'Next  ',
-                                style: Theme.of(context).textTheme.subtitle1
-                            ),
-                            Icon(Icons.arrow_forward_ios, color: Colors.black,),
-                          ],
-                        ),
-                      ),
-                    )
-                  ],
+                      Icon(Icons.arrow_forward_ios, color: Colors.black,),
+                    ],
+                  ),
                 ),
               )
             ],
@@ -297,6 +310,81 @@ class _ProfilePageState extends State<ProfilePage> {
         bottomNavigationBar: BottomBar(currentTab: 4),
       ),
     );
+  }
+
+  void _startAddNewTransaction(BuildContext ctx){
+    double h = MediaQuery.of(ctx).size.height;
+    showModalBottomSheet(context: ctx, builder: (_){
+      return Container(
+        height: h*0.22,
+        padding: EdgeInsets.only(top: 20),
+        child: GestureDetector(
+          onTap: (){},
+          child:Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Column(
+                children: [
+                  GestureDetector(
+                    onTap: (){
+                      getImage(0);
+                    },
+                    child: Container(
+                        height: h*0.14,
+                        width: h*0.14,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(h*0.07),
+                          color: Colors.grey,
+                        ),
+                        child: new Container(
+                            width: h*0.14,
+                            height: h*0.14,
+                            decoration: new BoxDecoration(
+                                shape: BoxShape.circle,
+                                image: new DecorationImage(
+                                    fit: BoxFit.fill,
+                                    image: AssetImage('assets/images/camera_icon.jpg')
+                                )
+                            ))
+                    ),
+                  ),
+                  Text('Camera')
+                ],
+              ),
+              Column(
+                children: [
+                  GestureDetector(
+                    onTap: (){
+                      getImage(1);
+                    },
+                    child: Container(
+                        height: h*0.14,
+                        width: h*0.14,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(h*0.07),
+                          color: Colors.grey,
+                        ),
+                        child: new Container(
+                            width: h*0.14,
+                            height: h*0.14,
+                            decoration: new BoxDecoration(
+                                shape: BoxShape.circle,
+                                image: new DecorationImage(
+                                    fit: BoxFit.fill,
+                                    image: AssetImage('assets/images/gallery_icon.jpg')
+                                )
+                            ))
+                    ),
+                  ),
+                  Text('Gallery')
+                ],
+              ),
+            ],
+          ),
+          behavior: HitTestBehavior.opaque,
+        ),
+      );
+    });
   }
 
   Widget tile(BuildContext context, String str) {

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:monthly_pay_user/Dash_Board/dash_board.dart';
 import 'package:monthly_pay_user/profile/statutory_detail.dart';
 
 class businesssDetail extends StatefulWidget {
@@ -11,6 +12,14 @@ class _businesssDetailState extends State<businesssDetail> {
   Widget build(BuildContext context) {
     final appbar = AppBar(
       title: Text('Business Detail'),
+      actions: [
+        IconButton(
+          icon: Icon(Icons.home),
+          onPressed: (){
+            _Fade(context, DashBoard());
+          },
+        )
+      ],
     );
     final h= MediaQuery.of(context).size.height-MediaQuery.of(context).padding.top;
     final w= MediaQuery.of(context).size.width;
@@ -84,6 +93,15 @@ class _businesssDetailState extends State<businesssDetail> {
                         ),
                       ],
                     ),
+                    FlatButton(
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                      color: Theme.of(context).primaryColor,
+                      onPressed: (){},
+                      child: Text(
+                        'Save Details',
+                        style: Theme.of(context).textTheme.headline5,
+                      ),
+                    )
                   ],
                 ),
               ),
