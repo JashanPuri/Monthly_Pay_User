@@ -241,6 +241,7 @@ class _authorizedPersonState extends State<authorizedPersonPage> {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     TypeAheadField(
+                      direction: AxisDirection.up,
                         textFieldConfiguration: TextFieldConfiguration(
                           decoration: InputDecoration(labelText: 'State'),
                           controller: this._typeAheadController,

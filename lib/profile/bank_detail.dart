@@ -56,6 +56,7 @@ class _bankDetailState extends State<bankDetail> {
                           )
                       ),
                       TypeAheadField(
+                        direction: AxisDirection.up,
                           textFieldConfiguration: TextFieldConfiguration(
                             controller: this._typeAheadController,
                           ),
