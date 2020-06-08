@@ -58,22 +58,23 @@ class TransactionDelegate extends SearchDelegate<CustomerTransaction> {
     );
   }
 
-  @override
-  ThemeData appBarTheme(BuildContext context) {
-    // TODO: implement appBarTheme
-    assert(context != null);
-    final ThemeData theme = Theme.of(context);
-    assert(theme != null);
-    return ThemeData(
-      primaryColor: theme.primaryColor,
-      accentColor: theme.accentColor,
-      textTheme: TextTheme(
-        headline6: theme.textTheme.headline6.copyWith(color: Colors.white),
-      ),
-      appBarTheme: AppBarTheme(elevation: 0),
-      inputDecorationTheme: InputDecorationTheme(
-        hintStyle: theme.textTheme.headline6.copyWith(color: Colors.white),
-      ),
-    );
-  }
+  // @override
+  // ThemeData appBarTheme(BuildContext context) {
+  //   // TODO: implement appBarTheme
+  //   assert(context != null);
+  //   final ThemeData theme = Theme.of(context);
+  //   assert(theme != null);
+  //   return ThemeData(
+  //     primaryColor: theme.primaryColor,
+  //     accentColor: theme.accentColor,
+  //     textTheme: TextTheme(
+  //       headline6: theme.textTheme.headline6.copyWith(color: Colors.white),
+  //     ),
+  //     appBarTheme: AppBarTheme(elevation: 0),
+  //     inputDecorationTheme: InputDecorationTheme(
+  //       hintStyle: theme.textTheme.headline6.copyWith(color: Colors.white),
+  //     ),
+  //   );
+  // }
+
 }

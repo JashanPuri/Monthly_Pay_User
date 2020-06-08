@@ -105,7 +105,8 @@ class _SearchPageState extends State<SearchPage>
   @override
   Widget build(BuildContext context) {
     var _appBar = AppBar(
-      elevation: 0,
+      backgroundColor: Colors.white,
+      elevation: 0.5,
       title: GestureDetector(
         onTap: () {
           showSearch(context: context, delegate: TransactionDelegate(transactionList: _transactionList));
@@ -116,11 +117,12 @@ class _SearchPageState extends State<SearchPage>
               Icon(
                 Icons.search,
                 size: 26,
+                color: Colors.grey,
               ),
               Expanded(
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: Text('Search'),
+                  child: Text('Search Here.. ',style: TextStyle(color: Colors.grey),),
                 ),
               ),
             ],

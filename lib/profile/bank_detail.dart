@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:monthly_pay_user/Dash_Board/dash_board.dart';
 
+import 'authorized_person_detail.dart';
+
 class bankDetail extends StatefulWidget {
   @override
   _bankDetailState createState() => _bankDetailState();
@@ -126,7 +128,7 @@ class _bankDetailState extends State<bankDetail> {
               color: Colors.grey[100],
               child: GestureDetector(
                 onTap: () {
-                  //  _Fade(context, authorizedPersonPage());
+                   _Fade(context, authorizedPersonPage());
                 },
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
