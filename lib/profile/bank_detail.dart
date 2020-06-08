@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
-import 'package:monthly_pay_user/profile/authorized_person_detail.dart';
+import 'package:monthly_pay_user/Dash_Board/dash_board.dart';
 
 class bankDetail extends StatefulWidget {
   @override
@@ -13,6 +13,14 @@ class _bankDetailState extends State<bankDetail> {
   Widget build(BuildContext context) {
      final appbar = AppBar(
       title: Text('Bank Detail'),
+       actions: [
+         IconButton(
+           icon: Icon(Icons.home),
+           onPressed: (){
+             _Fade(context, DashBoard());
+           },
+         )
+       ],
     );
     final h= MediaQuery.of(context).size.height-MediaQuery.of(context).padding.top;
     final w= MediaQuery.of(context).size.width;
@@ -47,6 +55,7 @@ class _bankDetailState extends State<bankDetail> {
                           )
                       ),
                       TypeAheadField(
+                        direction: AxisDirection.up,
                           textFieldConfiguration: TextFieldConfiguration(
                             controller: this._typeAheadController,
                           ),
@@ -102,7 +111,7 @@ class _bankDetailState extends State<bankDetail> {
                           color: Theme.of(context).primaryColor,
                           borderRadius: BorderRadius.circular(h*0.05)
                         ),
-                        child: Text('Update',
+                        child: Text('Save Details',
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 20
@@ -117,7 +126,7 @@ class _bankDetailState extends State<bankDetail> {
               color: Colors.grey[100],
               child: GestureDetector(
                 onTap: () {
-                   _Fade(context, authorizedPersonPage());
+                  //  _Fade(context, authorizedPersonPage());
                 },
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,

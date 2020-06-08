@@ -116,7 +116,7 @@ class _DashBoardState extends State<DashBoard>
       ],
       elevation: 0.0,
     );
-    
+
     double _heightOfScreen = MediaQuery.of(context).size.height -
         _appBar.preferredSize.height -
         MediaQuery.of(context).padding.top;

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:monthly_pay_user/profile/profile.dart';
 import '../Search/search_page.dart';
 import '../Dash_Board/dash_board.dart';
 import '../Invoice/invoice.dart';

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:intl/intl.dart';
+import 'package:monthly_pay_user/Common_Widgets/date_select.dart';
 
 import 'npci.dart';
 
@@ -52,34 +53,46 @@ class _orderDetailState extends State<orderDetail> {
 
 
   void _presentDatePicker(int k){
-    showDatePicker(
-        context: context,
-        initialDate: DateTime.now(),
-        firstDate: DateTime(2020),
-        lastDate: DateTime(2040)
-    ).then((pickedDate){
-      if(pickedDate==null){
-        return;
-      }
       if(k==0)
       {
-        setState(() {
-          _fromDate = pickedDate;
+        showDatePicker(
+            context: context,
+          initialDate: DateTime.now(),
+          firstDate: DateTime(2001),
+          lastDate: _toDate == null ? DateTime(2222) : _toDate,
+        ).then((pickedDate){
+          setState(() {
+            _fromDate = pickedDate;
+          });
         });
       }
       else if(k==1)
       {
-        setState(() {
-          _toDate = pickedDate;
+        showDatePicker(
+          context: context,
+          initialDate: _fromDate == null ? DateTime.now() : _fromDate,
+          firstDate: _fromDate == null ? DateTime(2001) : _fromDate,
+          lastDate: DateTime(2222),
+        ).then((pickedDate){
+          setState(() {
+            _toDate = pickedDate;
+          });
         });
       }
       else
       {
-        setState(() {
-          _endDate = pickedDate;
+        showDatePicker(
+          context: context,
+          initialDate: DateTime.now(),
+          firstDate: DateTime.now(),
+          lastDate: DateTime(2222),
+        ).then((pickedDate){
+          setState(() {
+            _endDate = pickedDate;
+          });
         });
       }
-    });
+
   }
   @override
   Widget build(BuildContext context) {
@@ -308,6 +321,8 @@ class _orderDetailState extends State<orderDetail> {
                           trailing: Container(
                             width: w*0.6,
                             child: TypeAheadFormField(
+                              direction:AxisDirection.up,
+                                getImmediateSuggestions: true,
                                 textFieldConfiguration: TextFieldConfiguration(
                                   controller: this._typeAheadController,
                                   decoration: InputDecoration(
