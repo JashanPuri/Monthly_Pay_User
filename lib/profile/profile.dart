@@ -243,6 +243,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 subtitle: Column(
                   children: [
                     TypeAheadField(
+                      direction: AxisDirection.up,
                         textFieldConfiguration: TextFieldConfiguration(
                           decoration: InputDecoration(labelText: 'State'),
                           controller: this._typeAheadController,
