@@ -67,7 +67,7 @@ class _authorizedPersonState extends State<authorizedPersonPage> {
             IconButton(
               icon: Icon(Icons.home),
               onPressed: (){
-                _Fade(context, DashBoard());
+                _fadeBackToHome(context, DashBoard());
               },
             )
           ],
@@ -286,6 +286,24 @@ class _authorizedPersonState extends State<authorizedPersonPage> {
           ),
         ),
     );
+  }
+
+  void _fadeBackToHome(BuildContext context, Widget widget) {
+    Navigator.of(context).pop();
+    Navigator.of(context).pop();
+    Navigator.of(context).pop();
+    Navigator.of(context).pop();
+    Navigator.of(context).pushReplacement(PageRouteBuilder(
+        transitionDuration: Duration(milliseconds: 600),
+        pageBuilder: (context, animation, secondaryAnimation) {
+          return widget;
+        },
+        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+          return FadeTransition(
+            opacity: animation,
+            child: child,
+          );
+        }));
   }
 
   void _startAddNewTransaction(BuildContext ctx){

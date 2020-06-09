@@ -19,7 +19,7 @@ class _bankDetailState extends State<bankDetail> {
          IconButton(
            icon: Icon(Icons.home),
            onPressed: (){
-             _Fade(context, DashBoard());
+             _fadeBackToHome(context, DashBoard());
            },
          )
        ],
@@ -149,6 +149,24 @@ class _bankDetailState extends State<bankDetail> {
   }
   void _Fade(BuildContext context, Widget widget) {
     Navigator.of(context).push(PageRouteBuilder(
+        transitionDuration: Duration(milliseconds: 600),
+        pageBuilder: (context, animation, secondaryAnimation) {
+          return widget;
+        },
+        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+          return FadeTransition(
+            opacity: animation,
+            child: child,
+          );
+        }));
+  }
+
+  
+void _fadeBackToHome(BuildContext context, Widget widget) {
+    Navigator.of(context).pop();
+    Navigator.of(context).pop();
+    Navigator.of(context).pop();
+    Navigator.of(context).pushReplacement(PageRouteBuilder(
         transitionDuration: Duration(milliseconds: 600),
         pageBuilder: (context, animation, secondaryAnimation) {
           return widget;

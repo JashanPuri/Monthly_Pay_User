@@ -16,7 +16,7 @@ class _businesssDetailState extends State<businesssDetail> {
         IconButton(
           icon: Icon(Icons.home),
           onPressed: (){
-            _Fade(context, DashBoard());
+            _fadeBackToHome(context, DashBoard());
           },
         )
       ],
@@ -142,7 +142,24 @@ class _businesssDetailState extends State<businesssDetail> {
           );
         }));
   }
+
+  void _fadeBackToHome(BuildContext context, Widget widget) {
+    Navigator.of(context).pop();
+    Navigator.of(context).pushReplacement(PageRouteBuilder(
+        transitionDuration: Duration(milliseconds: 600),
+        pageBuilder: (context, animation, secondaryAnimation) {
+          return widget;
+        },
+        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+          return FadeTransition(
+            opacity: animation,
+            child: child,
+          );
+        }));
+  }
 }
+
+
 
 Widget tile(BuildContext context,String str){
   return Column(
