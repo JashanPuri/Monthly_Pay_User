@@ -43,6 +43,7 @@ class _SearchPageState extends State<SearchPage>
       limit: 350,
       name: 'Shiviani Jaiswal',
       phoneNumber: '1234567890',
+      status: Status.active
     ),
     CustomerTransaction(
       bank: 'SBI',
@@ -50,6 +51,7 @@ class _SearchPageState extends State<SearchPage>
       limit: 350,
       name: 'Rajesh Jaiswal',
       phoneNumber: '1234567890',
+      status: Status.active
     ),
     CustomerTransaction(
       bank: 'SBI',
@@ -57,6 +59,7 @@ class _SearchPageState extends State<SearchPage>
       limit: 350,
       name: 'Sunita Jaiswal',
       phoneNumber: '1234567890',
+      status: Status.active
     ),
     CustomerTransaction(
       bank: 'SBI',
@@ -64,6 +67,7 @@ class _SearchPageState extends State<SearchPage>
       limit: 350,
       name: 'Vivek Jaiswal',
       phoneNumber: '1234567890',
+      status: Status.active
     ),
     CustomerTransaction(
       bank: 'SBI',
@@ -71,6 +75,7 @@ class _SearchPageState extends State<SearchPage>
       limit: 350,
       name: 'Onish Jaiswal',
       phoneNumber: '1234567890',
+      status: Status.active
     ),
     CustomerTransaction(
       bank: 'SBI',
@@ -78,6 +83,7 @@ class _SearchPageState extends State<SearchPage>
       limit: 350,
       name: 'Rhythm Jaiswal',
       phoneNumber: '1234567890',
+      status: Status.active
     ),
     CustomerTransaction(
       bank: 'SBI',
@@ -85,6 +91,7 @@ class _SearchPageState extends State<SearchPage>
       limit: 350,
       name: 'Anshu Jaiswal',
       phoneNumber: '1234567890',
+      status: Status.active,
     ),
     CustomerTransaction(
       bank: 'SBI',
@@ -92,6 +99,7 @@ class _SearchPageState extends State<SearchPage>
       limit: 350,
       name: 'Jashan Jaiswal',
       phoneNumber: '1234567890',
+      status: Status.active
     ),
     CustomerTransaction(
       bank: 'SBI',
@@ -99,6 +107,7 @@ class _SearchPageState extends State<SearchPage>
       limit: 350,
       name: 'Pushpam Jaiswal',
       phoneNumber: '1234567890',
+      status: Status.active
     ),
   ];
 

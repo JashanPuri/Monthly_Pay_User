@@ -41,6 +41,7 @@ class _TransactionListState extends State<TransactionList> {
                 fit: BoxFit.fill,
               )
             : widget.transactionList[index].image;
+        Status _currentStatus = widget.transactionList[index].status;
 
         return GestureDetector(
           onTap: () {
@@ -76,6 +77,49 @@ class _TransactionListState extends State<TransactionList> {
                 subtitle: Text(
                   widget.transactionList[index].phoneNumber,
                   style: _theme.textTheme.subtitle2.copyWith(fontSize: 20),
+                ),
+                trailing: Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 8),
+                  decoration: BoxDecoration(
+                      color: _theme.primaryColor,
+                      borderRadius: BorderRadius.circular(30)),
+                  child: DropdownButtonHideUnderline(
+                    child: DropdownButton(
+                      items: [
+                        DropdownMenuItem(
+                          child: Text(
+                            'Active',
+                            overflow: TextOverflow.ellipsis,
+                            style: _theme.textTheme.subtitle1,
+                          ),
+                          value: Status.active,
+                        ),
+                        DropdownMenuItem(
+                          child: Text(
+                            'Inactive',
+                            overflow: TextOverflow.ellipsis,
+                            style: _theme.textTheme.subtitle1,
+                          ),
+                          value: Status.inActive,
+                        ),
+                        DropdownMenuItem(
+                          child: Text(
+                            'Hold For Month',
+                            overflow: TextOverflow.ellipsis,
+                            style: _theme.textTheme.subtitle1,
+                          ),
+                          value: Status.holdForMonth,
+                        ),
+                      ],
+                      onChanged: (value) {
+                        setState(() {
+                          widget.transactionList[index].status = value;
+                          _currentStatus = value;
+                        });
+                      },
+                      value: _currentStatus,
+                    ),
+                  ),
                 ),
               ),
             ),
