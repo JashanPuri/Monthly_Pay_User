@@ -132,7 +132,7 @@ class _AddCustomerState extends State<AddCustomer> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
                               SizedBox(
-                                width: w * 0.36,
+                                width: w * 0.36,   
                                 child: TextField(
                                   decoration: InputDecoration(
                                     labelText: 'Tehsil',
@@ -157,6 +157,18 @@ class _AddCustomerState extends State<AddCustomer> {
                           child: TextField(
                             decoration: InputDecoration(
                               hintText: 'Pin',
+                            ),
+                            keyboardType: TextInputType.number,
+                          ),
+                        ),
+                        Container(
+                          padding: EdgeInsets.only(
+                              left: 8, right: 8, top: 8, bottom: 10),
+                          width: w * 0.9,
+                          child: TextField(
+                            decoration: InputDecoration(
+                              
+                              hintText: 'Telephone Number',
                             ),
                             keyboardType: TextInputType.number,
                           ),
