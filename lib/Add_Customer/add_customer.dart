@@ -18,33 +18,26 @@ class _AddCustomerState extends State<AddCustomer> {
         'Add New Customer',
         //style: Theme.of(context).textTheme.headline5,
       ),
-      backgroundColor: Theme
-          .of(context)
-          .primaryColor,
+      backgroundColor: Theme.of(context).primaryColor,
       elevation: 0,
     );
-    final h = MediaQuery
-        .of(context)
-        .size
-        .height - MediaQuery
-        .of(context)
-        .padding
-        .top - appbar.preferredSize.height ;
-    final w = MediaQuery
-        .of(context)
-        .size
-        .width;
+    final h = MediaQuery.of(context).size.height -
+        MediaQuery.of(context).padding.top -
+        appbar.preferredSize.height;
+    final w = MediaQuery.of(context).size.width;
     return Scaffold(
-      appBar: appbar,
-      body: CustomPaint(
-        painter: CurvePainter(),
-        child: Container(
-          height:  h ,
-          width: w,
-          padding: EdgeInsets.only(left: w * 0.03, right: w * 0.03,),
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
+        appBar: appbar,
+        body: CustomPaint(
+          painter: CurvePainter(),
+          child: Container(
+            height: h,
+            width: w,
+            padding: EdgeInsets.only(
+              left: w * 0.03,
+              right: w * 0.03,
+            ),
+            child: SingleChildScrollView(
+              child: Column(children: [
                 Card(
                     elevation: 4,
                     shape: RoundedRectangleBorder(
@@ -53,16 +46,14 @@ class _AddCustomerState extends State<AddCustomer> {
                       children: [
                         Padding(
                           padding: EdgeInsets.only(left: 8, right: 8, top: 8),
-                          child: Text('Name', style: Theme
-                              .of(context)
-                              .textTheme
-                              .headline6,),
+                          child: Text(
+                            'Name',
+                            style: Theme.of(context).textTheme.headline6,
+                          ),
                         ),
                         Container(
-                          padding: EdgeInsets.only(left: 8,
-                              right: 8,
-                              top: 8,
-                              bottom: 10),
+                          padding: EdgeInsets.only(
+                              left: 8, right: 8, top: 8, bottom: 10),
                           width: w * 0.95,
                           child: TextField(
                             decoration: InputDecoration(
@@ -71,9 +62,10 @@ class _AddCustomerState extends State<AddCustomer> {
                           ),
                         )
                       ],
-                    )
+                    )),
+                SizedBox(
+                  height: h * 0.03,
                 ),
-                SizedBox(height: h * 0.03,),
                 Card(
                     elevation: 4,
                     shape: RoundedRectangleBorder(
@@ -82,10 +74,10 @@ class _AddCustomerState extends State<AddCustomer> {
                       children: [
                         Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: Text('Address Detail', style: Theme
-                              .of(context)
-                              .textTheme
-                              .headline6,),
+                          child: Text(
+                            'Address Detail',
+                            style: Theme.of(context).textTheme.headline6,
+                          ),
                         ),
                         Container(
                           padding: EdgeInsets.all(8),
@@ -100,13 +92,14 @@ class _AddCustomerState extends State<AddCustomer> {
                           padding: EdgeInsets.all(8),
                           width: w * 0.95,
                           child: TypeAheadField(
-                            direction: AxisDirection.up,
+                              direction: AxisDirection.up,
                               textFieldConfiguration: TextFieldConfiguration(
                                 decoration: InputDecoration(labelText: 'State'),
                                 controller: this._typeAheadController,
                               ),
                               suggestionsCallback: (pattern) async {
-                                return await StateService.getSuggestions(pattern);
+                                return await StateService.getSuggestions(
+                                    pattern);
                               },
                               transitionBuilder:
                                   (context, suggestionsBox, controller) {
@@ -132,7 +125,8 @@ class _AddCustomerState extends State<AddCustomer> {
                           ),
                         ),
                         Container(
-                          padding: EdgeInsets.only(left: 8, right: 8, bottom: 3),
+                          padding:
+                              EdgeInsets.only(left: 8, right: 8, bottom: 3),
                           width: w * 0.95,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -141,7 +135,7 @@ class _AddCustomerState extends State<AddCustomer> {
                                 width: w * 0.36,
                                 child: TextField(
                                   decoration: InputDecoration(
-                                    labelText: 'City',
+                                    labelText: 'Tehsil',
                                   ),
                                 ),
                               ),
@@ -149,7 +143,7 @@ class _AddCustomerState extends State<AddCustomer> {
                                 width: w * 0.36,
                                 child: TextField(
                                   decoration: InputDecoration(
-                                    labelText: 'Tehsil',
+                                    labelText: 'City',
                                   ),
                                 ),
                               ),
@@ -168,9 +162,10 @@ class _AddCustomerState extends State<AddCustomer> {
                           ),
                         ),
                       ],
-                    )
+                    )),
+                SizedBox(
+                  height: h * 0.03,
                 ),
-                SizedBox(height: h * 0.03,),
                 Card(
                     elevation: 4,
                     shape: RoundedRectangleBorder(
@@ -179,79 +174,70 @@ class _AddCustomerState extends State<AddCustomer> {
                       children: [
                         Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: Text('Contact Detail', style: Theme
-                              .of(context)
-                              .textTheme
-                              .headline6,),
+                          child: Text(
+                            'Contact Detail',
+                            style: Theme.of(context).textTheme.headline6,
+                          ),
                         ),
                         Container(
                           padding: EdgeInsets.all(8),
                           width: w * 0.95,
                           child: TextField(
                             decoration: InputDecoration(
-                              labelText: 'E-mail Address',
-                              suffixIcon: Icon(Icons.mail)
-                            ),
+                                labelText: 'E-mail Address',
+                                suffixIcon: Icon(Icons.mail)),
                           ),
                         ),
                         Container(
-                          padding: EdgeInsets.only(left: 8,
-                              right: 8,
-                              top: 8,
-                              bottom: 10),
+                          padding: EdgeInsets.only(
+                              left: 8, right: 8, top: 8, bottom: 10),
                           width: w * 0.9,
                           child: TextField(
                             decoration: InputDecoration(
-                              labelText: 'Mobile',
-                              suffixIcon: Icon(Icons.phone_android)
-                            ),
+                                labelText: 'Mobile',
+                                suffixIcon: Icon(Icons.phone_android)),
                             keyboardType: TextInputType.number,
                           ),
                         ),
                       ],
-                    )
-                ),
-            Container(
-              height: h*0.06,
-              color: Colors.grey[100],
-              child: GestureDetector(
-                onTap: () {
-                  _Fade(context, Add_Photo());
-                },
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                        'Next  ',
-                        style: Theme.of(context).textTheme.subtitle1
-                    ),
-                    Icon(Icons.arrow_forward_ios, color: Colors.black,),
-                  ],
-                ),
-              )
+                    )),
+                Container(
+                    height: h * 0.06,
+                    color: Colors.grey[100],
+                    child: GestureDetector(
+                      onTap: () {
+                        _Fade(context, Add_Photo());
+                      },
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text('Next  ',
+                              style: Theme.of(context).textTheme.subtitle1),
+                          Icon(
+                            Icons.arrow_forward_ios,
+                            color: Colors.black,
+                          ),
+                        ],
+                      ),
+                    )),
+              ]),
             ),
-          ]),
-        ),
-      ),
-      ));
+          ),
+        ));
   }
 
   void _Fade(BuildContext context, Widget widget) {
-    Navigator.of(context).push(
-        PageRouteBuilder(
-            transitionDuration: Duration(milliseconds: 600),
-            pageBuilder: (context, animation, secondaryAnimation) {
-              return widget;
-            },
-            transitionsBuilder: (context, animation, secondaryAnimation,
-                child) {
-              return FadeTransition(
-                opacity: animation,
-                child: child,
-              );
-            }
-        )
-    );
+    Navigator.of(context).push(PageRouteBuilder(
+        transitionDuration: Duration(milliseconds: 600),
+        pageBuilder: (context, animation, secondaryAnimation) {
+          return widget;
+        },
+        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+          return FadeTransition(
+            opacity: animation,
+            child: child,
+          );
+        }));
   }
 }
 
@@ -305,7 +291,6 @@ class StateService {
     'TELANGANA'
   ];
 
-
   static List<String> getSuggestions(String query) {
     List<String> matches = List();
     matches.addAll(states);
@@ -313,4 +298,3 @@ class StateService {
     return matches;
   }
 }
-

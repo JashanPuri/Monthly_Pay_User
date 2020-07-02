@@ -11,7 +11,6 @@ class CustomerCard extends StatefulWidget {
 }
 
 class _CustomerCardState extends State<CustomerCard> {
-
   InvoiceCustomer currentCustomer;
   String currentlySelectedName;
   @override
@@ -20,7 +19,6 @@ class _CustomerCardState extends State<CustomerCard> {
     currentlySelectedName = currentCustomer.name;
     super.initState();
   }
-  
 
   GlobalKey _dropDownItem = GlobalKey();
 
@@ -52,7 +50,6 @@ class _CustomerCardState extends State<CustomerCard> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
-                
                 //Drop Down Widget
                 Container(
                   margin: EdgeInsets.only(top: 20, bottom: 10),
@@ -88,7 +85,7 @@ class _CustomerCardState extends State<CustomerCard> {
                       items: _createrDropDownList,
                       onChanged: (val) {
                         setState(() {
-                          currentCustomer = val; 
+                          currentCustomer = val;
                         });
                       },
                     ),
@@ -105,7 +102,9 @@ class _CustomerCardState extends State<CustomerCard> {
                   ),
                 ),
                 Container(
-                  margin: EdgeInsets.only(left: 30, right: 30),
+                  margin: EdgeInsets.only(bottom: 30, left: 30, right: 30),
+                  width: constraints.maxWidth * 0.5,
+                  height: 56,
                   child: Card(
                     color: theme.primaryColor,
                     shape: RoundedRectangleBorder(
@@ -113,13 +112,25 @@ class _CustomerCardState extends State<CustomerCard> {
                     ),
                     child: Padding(
                       padding: const EdgeInsets.symmetric(
-                          vertical: 10, horizontal: 30),
-                      child: Text(
-                        currentCustomer.limit.toString(),
-                        overflow: TextOverflow.ellipsis,
+                        vertical: 0,
+                        horizontal: 30,
+                      ),
+                      child: TextField(
+                        onSubmitted: (val) {
+                          setState(() {
+                            currentCustomer.limit = double.parse(val);
+                          });
+                        },
+                        keyboardType: TextInputType.number,
+                        decoration: InputDecoration.collapsed(
+                          floatingLabelBehavior: FloatingLabelBehavior.never,
+                          hintText: currentCustomer.limit.toString(),
+                          hintStyle: theme.textTheme.subtitle1
+                              .copyWith(color: theme.accentColor, fontSize: 25),
+                        ),
                         textAlign: TextAlign.center,
                         style: theme.textTheme.subtitle1
-                            .copyWith(color: theme.accentColor),
+                            .copyWith(color: theme.accentColor, fontSize: 25),
                       ),
                     ),
                   ),
@@ -135,6 +146,8 @@ class _CustomerCardState extends State<CustomerCard> {
                 ),
                 Container(
                   margin: EdgeInsets.only(bottom: 30, left: 30, right: 30),
+                  width: constraints.maxWidth * 0.5,
+                  height: 56,
                   child: Card(
                     color: theme.primaryColor,
                     shape: RoundedRectangleBorder(
@@ -142,15 +155,25 @@ class _CustomerCardState extends State<CustomerCard> {
                     ),
                     child: Padding(
                       padding: const EdgeInsets.symmetric(
-                        vertical: 10,
+                        vertical: 0,
                         horizontal: 30,
                       ),
-                      child: Text(
-                        currentCustomer.amount.toString(),
-                        overflow: TextOverflow.ellipsis,
+                      child: TextField(
+                        onSubmitted: (val) {
+                          setState(() {
+                            currentCustomer.limit = double.parse(val);
+                          });
+                        },
+                        keyboardType: TextInputType.number,
+                        decoration: InputDecoration.collapsed(
+                          floatingLabelBehavior: FloatingLabelBehavior.never,
+                          hintText: currentCustomer.amount.toString(),
+                          hintStyle: theme.textTheme.subtitle1
+                              .copyWith(color: theme.accentColor, fontSize: 25),
+                        ),
                         textAlign: TextAlign.center,
                         style: theme.textTheme.subtitle1
-                            .copyWith(color: theme.accentColor),
+                            .copyWith(color: theme.accentColor, fontSize: 25),
                       ),
                     ),
                   ),
